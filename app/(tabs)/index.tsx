@@ -1,75 +1,118 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+export default function WelcomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <Text style={styles.title}>
+        🎉 Welcome to <Text style={styles.highlight}>MFWhitelist</Text>
+      </Text>
+
+      <Text style={styles.subtitle}>
+        Your trusted gateway to Mutual Fund onboarding.
+      </Text>
+
+      <View style={styles.featureList}>
+        {[
+    { icon: <Ionicons name="flash-outline" size={22} color="#4CAF50" />, text: 'Lightning-fast performance' },
+    { icon: <MaterialIcons name="update" size={22} color="#4CAF50" />, text: 'Instant OTA updates' },
+    { icon: <FontAwesome5 name="mobile-alt" size={20} color="#4CAF50" />, text: 'One codebase for iOS, Android, and Web' },
+  ].map((item, index) => (
+    <View key={index} style={styles.featureItem}>
+      <View style={styles.iconContainer}>{item.icon}</View>
+      <Text style={styles.featureText}>{item.text}</Text>
+    </View>
+  ))}
+    
+      </View>
+
+      <Text style={styles.otaNote}>
+  🔧 We're continuously improving the experience. New features and UI components will be added soon — all without needing app store updates, thanks to Expo OTA.
+</Text>
+
+
+      <Text style={styles.footer}>
+        This is just the beginning — stay tuned for regular feature updates via Expo OTA.
+      </Text>
+
+      <Text style={styles.version}>
+        App Version: {Constants.manifest?.version || '1.0.0'}
+      </Text>
+    </View>
   );
+  
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+
+  featureList: {
+  width: '100%',
+  marginTop: 20,
+},
+featureItem: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 16,
+},
+iconContainer: {
+  width: 28,
+  alignItems: 'center',
+},
+featureText: {
+  fontSize: 16,
+  color: '#333',
+  flex: 1,
+  marginLeft: 12,
+},
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingHorizontal: 24,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  title: {
+    fontSize: 26,
+    fontWeight: '700',
+    color: '#111',
+    textAlign: 'center',
+    marginBottom: 10,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  highlight: {
+    color: '#007AFF',
+  },
+  otaNote: {
+  fontSize: 13,
+  color: '#666',
+  textAlign: 'center',
+  marginTop: 20,
+  paddingHorizontal: 10,
+  lineHeight: 18,
+},
+
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 30,
+  },
+
+
+  icon: {
+    marginRight: 12,
+  },
+ 
+  footer: {
+    fontSize: 14,
+    color: '#888',
+    textAlign: 'center',
+    paddingHorizontal: 10,
+  },
+  version: {
+    marginTop: 20,
+    fontSize: 13,
+    color: '#aaa',
   },
 });
